@@ -41,3 +41,17 @@ Then run the script in the same directory as `config.yml` or use the `-c` argume
 wms-downloader
 wms-downloader -c /path/to/my_custom_config.yml
 ```
+
+Help
+----
+
+```
+$ wms-downloader --help
+usage: Downloads large geo TIFF files from a WMS service.
+
+positional arguments:
+  config      config file [default: config.yml]
+
+optional arguments:
+  -h, --help  show this help message and exit
+```
