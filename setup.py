@@ -16,8 +16,8 @@ requirements = [
     'PyYAML'
 ]
 
-scripts = [
-    'bin/wms-downloader'
+console_scripts = [
+    'wms-downloader=wms_downloader.download:main'
 ]
 
 setup(
@@ -33,5 +33,7 @@ setup(
     packages=find_packages(),
     install_requires=requirements,
     classifiers=[],
-    scripts=scripts,
+    entry_points={
+        'console_scripts': console_scripts
+    }
 )

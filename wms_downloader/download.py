@@ -30,7 +30,7 @@ xml_template = '''<GDAL_WMS>
 
 def main():
     parser = argparse.ArgumentParser(usage='Downloads large geo TIFF files from a WMS service.')
-    parser.add_argument('config', nargs='?', default='config.yml', help='config file [default: config.yml]')
+    parser.add_argument('config', help='config file')
     args = parser.parse_args()
 
     with open(args.config) as f:
@@ -54,15 +54,14 @@ def download_images(config):
 
     for west in west_range:
         for south in south_range:
-            filename = '%(directory)s/%(west)s_%(south)s_%(resolution)s.gdal.tif' % {
-                'directory': config['directory'],
+            filename = os.path.join(config['directory'], '%(west)s_%(south)s_%(resolution)s.gdal.tif' % {
                 'west': west,
                 'south': south,
                 'resolution': config['resolution']
-            }
+            })
 
             if not os.path.exists(filename + '.aux.xml'):
-                print(filename)
+                print('fetching %s' % filename)
 
                 xml_params = {
                     'west': west,
@@ -83,9 +82,10 @@ def download_images(config):
 
 
 def create_vrt_file(config):
-    args = ['gdalbuildvrt', '-a_srs', config['projection'], '-overwrite', config['vrtfile']]
-    args += glob.glob('%s/*.gdal.tif' % config['directory'])
-    subprocess.check_call(args)
+    if not os.path.exists(config['vrtfile']):
+        args = ['gdalbuildvrt', '-a_srs', config['projection'], config['vrtfile']]
+        args += glob.glob('%s/*.gdal.tif' % config['directory'])
+        subprocess.check_call(args)
 
 
 def arange(start, stop, step):
