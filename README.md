@@ -5,7 +5,7 @@ Install
 -------
 
 ```bash
-    pip install wms-downloader
+pip install wms-downloader
 ```
 
 Usage
@@ -38,6 +38,6 @@ tmpfile: /tmp/wms.xml
 Then run the script in the same directory as `config.yml` or use the `-c` argument:
 
 ```
-    wms-downloader
-    wms-downloader -c /path/to/my_custom_config.yml
+wms-downloader
+wms-downloader -c /path/to/my_custom_config.yml
 ```
