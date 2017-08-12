@@ -4,7 +4,6 @@ dist
 env
 env3
 
-*.vrt
 *.egg-info
 *.pyc
 

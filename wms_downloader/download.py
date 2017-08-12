@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import argparse
+import glob
 import os
 import subprocess
 import yaml
@@ -34,11 +35,19 @@ def main():
     with open(args.config) as f:
         config = yaml.load(f.read())
 
+    create_directory(config)
+    download_images(config)
+    create_vrt_file(config)
+
+
+def create_directory(config):
     try:
         os.makedirs(config['directory'])
     except OSError:
         pass
 
+
+def download_images(config):
     west_range = list(arange(config['bbox']['west'], config['bbox']['east'], config['size']))
     south_range = list(arange(config['bbox']['south'], config['bbox']['north'], config['size']))
 
@@ -71,8 +80,10 @@ def main():
                 args = ['gdal_translate', '-of', 'JPEG', config['tmpfile'], filename]
                 subprocess.check_call(args)
 
-    file_pattern = '%s/*.gdal.tif'
-    args = ['gdalbuildvrt', '-a_srs', config['projection'], '-overwrite', config['vrtfile'], file_pattern]
+
+def create_vrt_file(config):
+    args = ['gdalbuildvrt', '-a_srs', config['projection'], '-overwrite', config['vrtfile']]
+    args += glob.glob('%s/*.gdal.tif' % config['directory'])
     subprocess.check_call(args)
 
 

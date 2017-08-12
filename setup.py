@@ -13,8 +13,7 @@ url = 'https://github.com/jochenklar/wms-downloader'
 
 requirements = [
     'mercantile',
-    'PyYAML',
-    'numpy'
+    'PyYAML'
 ]
 
 scripts = [
