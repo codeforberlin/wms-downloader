@@ -38,8 +38,7 @@ tmpfile: /tmp/wms.xml
 Then run the script in the same directory as `config.yml` or use the `-c` argument:
 
 ```
-wms-downloader
-wms-downloader -c /path/to/my_custom_config.yml
+wms-downloader config.yml
 ```
 
 Help
@@ -50,7 +49,7 @@ $ wms-downloader --help
 usage: Downloads large geo TIFF files from a WMS service.
 
 positional arguments:
-  config      config file [default: config.yml]
+  config      config file
 
 optional arguments:
   -h, --help  show this help message and exit
