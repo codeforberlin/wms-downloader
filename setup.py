@@ -9,10 +9,9 @@ from wms_downloader import (
 
 description = 'Downloads large geo TIFF files from a WMS service.'
 email = 'jochenklar@gmail.com'
-url = 'https://github.com/jochenklar/wms-downloader'
+url = 'https://github.com/codeforberlin/wms-downloader'
 
 requirements = [
-    'mercantile',
     'PyYAML'
 ]
 
