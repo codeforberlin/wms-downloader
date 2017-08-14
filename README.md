@@ -45,7 +45,7 @@ where:
 * `vrtfile` is the path to the created vrt file, and
 * `tmpfile` is the path to the (temporary) xml file used for the WMS requests.
 
-Then run the script in the same directory as `config.yml` or use the `-c` argument:
+Then run the script with the `config.yml` as argument:
 
 ```
 wms-downloader config.yml
