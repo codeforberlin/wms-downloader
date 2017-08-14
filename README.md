@@ -35,6 +35,16 @@ vrtfile: tiles.vrt
 tmpfile: /tmp/wms.xml
 ```
 
+where:
+
+* `service` describes the used WMS service,
+* `bbox` is the bounding box for the map you want to retrieve,
+* `size` is the size of an individual TIFF file in the use projection,
+* `resolution` is the resolution of an individual file in pixel,
+* `directory` is the directory where the downloaded images are stored,
+* `vrtfile` is the path to the created vrt file, and
+* `tmpfile` is the path to the (temporary) xml file used for the WMS requests.
+
 Then run the script in the same directory as `config.yml` or use the `-c` argument:
 
 ```
