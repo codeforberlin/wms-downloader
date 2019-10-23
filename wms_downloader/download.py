@@ -83,7 +83,6 @@ def download_images(config):
                     f.write(xml_template % xml_params)
 
                 args = ['gdal_translate', '-of', config['service']['format'], config['tmpfile'], filename]
-                print (args)
                 subprocess.check_call(args)
 
 
