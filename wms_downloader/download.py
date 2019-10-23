@@ -5,7 +5,9 @@ import glob
 import os
 import subprocess
 import yaml
+import logging
 
+logger = logging.getLogger(__name__)
 
 xml_template = '''<GDAL_WMS>
   <Service name="WMS">
@@ -33,7 +35,15 @@ xml_template = '''<GDAL_WMS>
 def main():
     parser = argparse.ArgumentParser(usage='Downloads large geo TIFF files from a WMS service.')
     parser.add_argument('config', help='config file')
+    parser.add_argument('--debug', action='store_true', help='debug output')
     args = parser.parse_args()
+
+    handler = logging.StreamHandler()
+    handler.setFormatter(logging.Formatter('%(levelname)s: %(message)s'))
+    logger.addHandler(handler)
+
+    if args.debug:
+        logger.setLevel(logging.DEBUG)
 
     with open(args.config) as f:
         config = yaml.load(f.read(), Loader=yaml.FullLoader)
@@ -46,8 +56,9 @@ def main():
 def create_directory(config):
     try:
         os.makedirs(config['directory'])
+        logger.debug('directory "%s" created', config['directory'])
     except OSError:
-        pass
+        logger.debug('directory "%s" exists', config['directory'])
 
 
 def download_images(config):
@@ -65,7 +76,6 @@ def download_images(config):
 
             if not os.path.exists(filename + '.aux.xml'):
                 print('fetching %s' % filename)
-
                 xml_params = {
                     'west': west,
                     'south': south,
@@ -82,6 +92,7 @@ def download_images(config):
                 with open(config['tmpfile'], 'w') as f:
                     f.write(xml_template % xml_params)
 
+                logger.info('fetching "%s"', filename)
                 args = ['gdal_translate', '-of', config['service']['format'], config['tmpfile'], filename]
                 subprocess.check_call(args)
 
