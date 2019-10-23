@@ -19,6 +19,7 @@ service:
   url: http://fbinter.stadt-berlin.de/fb/wms/senstadt/k_luftbild1953?
   srs: EPSG:25833
   format: jpeg
+  transparent: false
   layer: 0
 bbox:
   west:   370000.0
@@ -30,6 +31,7 @@ size: 10000
 resolution: 600
 timeout: 300
 projection: EPSG:25833
+bandscount: 3
 directory: images
 vrtfile: tiles.vrt
 tmpfile: /tmp/wms.xml
@@ -39,8 +41,8 @@ where:
 
 * `service` describes the used WMS service,
 * `bbox` is the bounding box for the map you want to retrieve,
-* `size` is the size of an individual TIFF file in the use projection,
-* `resolution` is the resolution of an individual file in pixel,
+* `size` is the size of an individual tile in projection units,
+* `resolution` is the pixel dimension of an individual tile,
 * `directory` is the directory where the downloaded images are stored,
 * `vrtfile` is the path to the created vrt file, and
 * `tmpfile` is the path to the (temporary) xml file used for the WMS requests.
