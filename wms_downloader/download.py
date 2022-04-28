@@ -67,7 +67,7 @@ def download_images(config):
 
     for west in west_range:
         for south in south_range:
-            filename = os.path.join(config['directory'], '%(west)s_%(south)s_%(resolution)s.gdal.%(format)s' % {
+            filename = os.path.join(config['directory'], '%(west)s_%(south)s_%(resolution)s.%(format)s' % {
                 'west': west,
                 'south': south,
                 'resolution': config['resolution'],
@@ -100,7 +100,7 @@ def download_images(config):
 def create_vrt_file(config):
     if not os.path.exists(config['vrtfile']):
         args = ['gdalbuildvrt', '-a_srs', config['projection'], config['vrtfile']]
-        args += glob.glob('%s/*.gdal.%s' % (config['directory'],config['service']['format']) )
+        args += glob.glob('%s/*.%s' % (config['directory'], config['service']['format']))
         subprocess.check_call(args)
 
 
@@ -109,6 +109,7 @@ def arange(start, stop, step):
     while current < stop:
         yield current
         current += step
+
 
 if __name__ == "__main__":
     main()
