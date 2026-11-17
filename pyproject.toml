@@ -7,6 +7,7 @@ name = "wms-downloader"
 dynamic = ["version"]
 description = "Downloads large geo TIFF files from a WMS service."
 readme = "README.md"
+requires-python = ">=3.11"
 license = "MIT"
 license-files = ["LICENSE"]
 authors = [{ name = "Jochen Klar", email = "mail@jochenklar.de" }]
